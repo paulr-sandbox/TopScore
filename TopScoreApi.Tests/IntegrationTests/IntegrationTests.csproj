@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\TopScoreApi.Web\TopScoreApi.Web.csproj" />
+  </ItemGroup>
+
 </Project>
