@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TopScoreApi.Application/TopScoreApi.Application.csproj" />
+  <Project Path="TopScoreApi.Domain/TopScoreApi.Domain.csproj" />
+  <Project Path="TopScoreApi.Infrastructure/TopScoreApi.Infrastructure.csproj" />
+  <Project Path="TopScoreApi.Web/TopScoreApi.Web.csproj" />
+</Solution>
