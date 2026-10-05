@@ -7,4 +7,5 @@
   <Project Path="TopScoreApi.Domain/TopScoreApi.Domain.csproj" />
   <Project Path="TopScoreApi.Infrastructure/TopScoreApi.Infrastructure.csproj" />
   <Project Path="TopScoreApi.Web/TopScoreApi.Web.csproj" />
+  <Project Path="TopScorerCLI/TopScorerCLI.csproj" />
 </Solution>
