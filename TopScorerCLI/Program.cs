@@ -1,21 +1,24 @@
-﻿class Program
+﻿using Microsoft.Data.Sqlite;
+
+namespace TopScorerCLI;
+
+class Program
 {
+    private static readonly string TABLE_NAME = "TestScores";
     static void Main(string[] args)
     {
         try
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Please provide the path to the CSV file as an argument.\ne.g. dotnet run <path-to-csv>");
-                return;
+                throw new ArgumentException("Please provide the path to the CSV file as an argument.\ne.g. dotnet run <path-to-csv>");
             }
 
             string filePath = args[0];
 
             if (!File.Exists(filePath))
             {
-                Console.WriteLine($"ERROR: File not found at '{filePath}'");
-                return;
+                throw new FileNotFoundException($"File not found at '{filePath}'");
             }
 
             Console.WriteLine($"Reading file: {filePath}\n");
@@ -24,7 +27,10 @@
 
             string? headerLine = reader.ReadLine();
 
-            if (string.IsNullOrWhiteSpace(headerLine)) throw new InvalidDataException("Invalid header row.");
+            if (string.IsNullOrWhiteSpace(headerLine))
+            {
+                throw new InvalidDataException("Invalid header row.");
+            }
 
             var headers = headerLine.Split(',');
             var columnCount = headers.Length;
@@ -37,9 +43,19 @@
             while ((line = reader.ReadLine()) != null)
             {
                 string[] values = line.Split(',');
-                if (values.Length != 3) throw new InvalidDataException("Invalid CSV row.");
-                if (int.TryParse(values[2], out int result)) rows.Add(new DataRow(values[0], values[1], result));
-                else Console.WriteLine($"Invalid score on row {rowNumber}");
+                if (values.Length != 3)
+                {
+                    throw new InvalidDataException("Invalid CSV row.");
+                }
+
+                if (int.TryParse(values[2], out int result))
+                {
+                    rows.Add(new DataRow(values[0].Trim(), values[1].Trim(), result));
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid score on row {rowNumber}");
+                }
                 rowNumber++;
             }
 
@@ -51,8 +67,18 @@
                 Console.WriteLine($"{scorer.FirstName} {scorer.LastName}");
             }
             Console.WriteLine($"Score: {topScore}");
+
+            var databaseManager = new DatabaseManager();
+            databaseManager.InitialiseDatabase();
+
+            databaseManager.ImportScores(rows);
+
+            databaseManager.OutputTopScorers();
         }
-        catch (Exception e) { Console.WriteLine($"ERROR: {e.Message}"); }
+        catch (Exception e)
+        {
+            Console.WriteLine($"ERROR: {e.Message}");
+        }
     }
 }
 
