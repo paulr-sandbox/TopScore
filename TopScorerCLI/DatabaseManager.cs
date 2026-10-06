@@ -112,10 +112,12 @@ public class DatabaseManager
             ";
 
         using var dbReader = selectCommand.ExecuteReader();
+        int? topScore = null;
         while (dbReader.Read())
         {
+            topScore ??= dbReader.GetInt32(2);
             Console.WriteLine($"{dbReader.GetString(0)} {dbReader.GetString(1)}");
         }
-        // Console.WriteLine($"Score: {dbReader.GetInt32(2)}");
+        Console.WriteLine($"Score: {topScore}");
     }
 }

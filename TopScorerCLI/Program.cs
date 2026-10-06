@@ -71,8 +71,6 @@ class Program
             databaseManager.InitialiseDatabase();
 
             databaseManager.ImportScores(rows);
-
-            databaseManager.OutputTopScorers();
         }
         catch (Exception e)
         {
