@@ -7,6 +7,7 @@ namespace TopScoreApi.Infrastructure.Persistence.DataAccess;
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
     public DbSet<TestScore> TestScores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

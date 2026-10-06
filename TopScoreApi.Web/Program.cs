@@ -1,6 +1,7 @@
 using Scalar.AspNetCore;
 using TopScoreApi.Application;
 using TopScoreApi.Infrastructure;
+using TopScoreApi.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    await app.Services.ApplyMigrationsAsync();
     app.MapOpenApi();
 
     app.MapScalarApiReference(o =>
