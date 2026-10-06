@@ -6,4 +6,6 @@ namespace TopScoreApi.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
     DbSet<TestScore> TestScores { get; }
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
