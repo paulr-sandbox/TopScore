@@ -11,7 +11,9 @@ public class GetTopScoreQueryHandler(IApplicationDbContext context) : IRequestHa
 {
     public async Task<TopScoreDto> Handle(GetTopScoreQuery request, CancellationToken cancellationToken)
     {
-        var topScore = await context.TestScores.MaxAsync(s => s.Score, cancellationToken: cancellationToken);
+
+        var topScore = await context.TestScores.MaxAsync(s => (int?)s.Score, cancellationToken: cancellationToken)
+            ?? throw new Exception("No scores found.");
 
         var topScorers = await context.TestScores
             .Where(s => s.Score == topScore)
