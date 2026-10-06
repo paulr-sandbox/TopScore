@@ -8,13 +8,13 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<Score> TestScores { get; set; }
+    public DbSet<TestScore> TestScores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Score>()
+        modelBuilder.Entity<TestScore>()
             .HasKey(s => new { s.FirstName, s.LastName });
     }
 }

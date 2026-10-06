@@ -23,6 +23,19 @@ public class ScoreController : ControllerBase
         return await _mediator.Send(new GetTopScoreQuery(), cancellationToken);
     }
 
+    [HttpGet("person")]
+    public async Task<ActionResult<ScoreDto>> GetPersonScore([FromQuery] string FirstName, [FromQuery] string LastName, CancellationToken cancellationToken)
+    {
+        var score = await _mediator.Send(new GetPersonScoreQuery(FirstName, LastName), cancellationToken);
+
+        if (score is null)
+        {
+            return NotFound(new { Message = $"Person with name '{FirstName} {LastName}' was not found." });
+        }
+
+        return Ok(score);
+    }
+
     [HttpPost("upload-list")]
     public async Task<ActionResult<int>> UploadList([FromBody] List<ScoreDto> scores, CancellationToken cancellationToken)
     {
