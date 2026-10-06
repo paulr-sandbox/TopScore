@@ -11,7 +11,12 @@
                 "TopScoreApi.Web",
                 "--launch-profile",
                 "https"
-            ]
+            ],
+            "options": {
+                "env": {
+                    "ASPNETCORE_ENVIRONMENT": "Development"
+                }
+            }
         }
     ]
 }

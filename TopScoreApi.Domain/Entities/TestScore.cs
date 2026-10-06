@@ -1,8 +1,6 @@
-﻿using TopScoreApi.Domain.Common;
+﻿namespace TopScoreApi.Domain.Entities;
 
-namespace TopScoreApi.Domain.Entities;
-
-public class TestScore : BaseEntity
+public class TestScore
 {
     public string FirstName { get; set; } = "";
     public string LastName { get; set; } = "";
