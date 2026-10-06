@@ -4,7 +4,6 @@ namespace TopScorerCLI;
 
 class Program
 {
-    private static readonly string TABLE_NAME = "TestScores";
     static void Main(string[] args)
     {
         try
