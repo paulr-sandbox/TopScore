@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-
-namespace TopScorerCLI;
+﻿namespace TopScorerCLI;
 
 class Program
 {
@@ -24,53 +22,18 @@ class Program
 
             using StreamReader reader = new(filePath);
 
-            string? headerLine = reader.ReadLine();
+            var testScores = new TestScores(reader);
 
-            if (string.IsNullOrWhiteSpace(headerLine))
-            {
-                throw new InvalidDataException("Invalid header row.");
-            }
-
-            var headers = headerLine.Split(',');
-            var columnCount = headers.Length;
-
-            string? line;
-            int rowNumber = 2;
-
-            List<DataRow> rows = [];
-
-            while ((line = reader.ReadLine()) != null)
-            {
-                string[] values = line.Split(',');
-                if (values.Length != 3)
-                {
-                    throw new InvalidDataException("Invalid CSV row.");
-                }
-
-                if (int.TryParse(values[2], out int result))
-                {
-                    rows.Add(new DataRow(values[0].Trim(), values[1].Trim(), result));
-                }
-                else
-                {
-                    Console.WriteLine($"Invalid score on row {rowNumber}");
-                }
-                rowNumber++;
-            }
-
-            var topScore = rows.Max(r => r.Score);
-            var topScorers = rows.Where(r => r.Score == topScore).OrderBy(r => r.FirstName).ThenBy(r => r.LastName);
-
-            foreach (var scorer in topScorers)
+            foreach (var scorer in testScores.TopScorers())
             {
                 Console.WriteLine($"{scorer.FirstName} {scorer.LastName}");
             }
-            Console.WriteLine($"Score: {topScore}");
+            Console.WriteLine($"Score: {testScores.TopScore}");
 
             var databaseManager = new DatabaseManager();
             databaseManager.InitialiseDatabase();
 
-            databaseManager.ImportScores(rows);
+            databaseManager.ImportScores(testScores.Scores);
         }
         catch (Exception e)
         {
@@ -78,5 +41,3 @@ class Program
         }
     }
 }
-
-public record DataRow(string FirstName, string LastName, int Score);
