@@ -17,6 +17,21 @@
                     "ASPNETCORE_ENVIRONMENT": "Development"
                 }
             }
+        },
+        {
+            "label": "Run CLI App",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["run", "--project", "TopScorerCLI", "${input:userInput}"],
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "userInput",
+            "description": "Enter the argument value:",
+            "default": "TestData.csv",
+            "type": "promptString"
         }
     ]
 }
