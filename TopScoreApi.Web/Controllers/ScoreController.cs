@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TopScoreApi.Application.Command;
+using TopScoreApi.Application.Commands;
 using TopScoreApi.Application.Models;
 using TopScoreApi.Application.Queries;
 
@@ -37,16 +37,16 @@ public class ScoreController : ControllerBase
     }
 
     [HttpPost("upload-list")]
-    public async Task<ActionResult<int>> UploadList([FromBody] List<ScoreDto> scores, CancellationToken cancellationToken)
+    public async Task<ActionResult<UpsertScoresResultDto>> UploadList([FromBody] List<ScoreDto> scores, CancellationToken cancellationToken)
     {
         if (scores == null || scores.Count == 0)
         {
             return BadRequest("Score list cannot be empty");
         }
 
-        var insertedCount = await _mediator.Send(new AddScoresCommand(scores), cancellationToken);
+        var result = await _mediator.Send(new AddScoresCommand(scores), cancellationToken);
 
-        return Ok(new { Message = $"{insertedCount} item(s) uploaded successfully" });
+        return Ok(new { Message = $"{result.InsertedCount} item(s) inserted successfully.\n{result.UpdatedCount} item(s) updated successfully." });
     }
 
 }
