@@ -20,7 +20,7 @@ This application takes in a CSV file as an argument a to complete the following:
 
 1. Read the contents of the CSV.
 2. Find the top score in the CSV as well as the names associated with it and print to the commandline.
-3. Populate a SQLite databse with the contents of the CSV.
+3. Populate a SQLite databse with the contents of the CSV called cliDatabse.db. This is created in the root of the project.
 
 ## Limitations
 
@@ -49,7 +49,6 @@ dotnet ef migrations add InitialMigration --output-dir Persistence/Migrations --
 
 ## TO DO
 
-- Unit Tests
 - Align logic (update same name, consistently throw errors)
 - Move to shared DB
 - Cleanup migrations?

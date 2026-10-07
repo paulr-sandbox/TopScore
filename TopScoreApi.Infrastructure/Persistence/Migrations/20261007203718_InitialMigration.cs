@@ -21,6 +21,8 @@ namespace TopScoreApi.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TestScores", x => new { x.FirstName, x.LastName });
+                    table.CheckConstraint("CK_TestScore_FirstName_NotEmpty", "length(FirstName) > 0");
+                    table.CheckConstraint("CK_TestScore_LastName_NotEmpty", "length(LastName) > 0");
                 });
         }
 

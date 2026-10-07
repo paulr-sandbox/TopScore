@@ -10,7 +10,7 @@ using TopScoreApi.Infrastructure.Persistence.DataAccess;
 namespace TopScoreApi.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261006204322_InitialMigration")]
+    [Migration("20261007203718_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -32,7 +32,12 @@ namespace TopScoreApi.Infrastructure.Persistence.Migrations
 
                     b.HasKey("FirstName", "LastName");
 
-                    b.ToTable("TestScores");
+                    b.ToTable("TestScores", t =>
+                        {
+                            t.HasCheckConstraint("CK_TestScore_FirstName_NotEmpty", "length(FirstName) > 0");
+
+                            t.HasCheckConstraint("CK_TestScore_LastName_NotEmpty", "length(LastName) > 0");
+                        });
                 });
 #pragma warning restore 612, 618
         }

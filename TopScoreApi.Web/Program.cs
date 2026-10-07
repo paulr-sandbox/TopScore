@@ -18,7 +18,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    await app.Services.ApplyMigrationsAsync();
+    // await app.Services.ApplyMigrationsAsync(); TODO: Can remove since the CLI app is meant to create this
     app.MapOpenApi();
 
     app.MapScalarApiReference(o =>

@@ -20,8 +20,8 @@ public class DatabaseManager
         var createTableCmd = connection.CreateCommand();
         createTableCmd.CommandText = $@"
                 CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-                    FirstName TEXT,
-                    LastName TEXT,
+                    FirstName TEXT NOT NULL CHECK (LENGTH(FirstName) > 0),
+                    LastName TEXT NOT NULL CHECK (LENGTH(LastName) > 0),
                     Score INTEGER,
                     PRIMARY KEY (FirstName, LastName)
                 );";

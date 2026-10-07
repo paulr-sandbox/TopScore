@@ -14,7 +14,21 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<TestScore>()
-            .HasKey(s => new { s.FirstName, s.LastName });
+        modelBuilder.Entity<TestScore>(entity =>
+        {
+            entity.Property(s => s.FirstName).IsRequired();
+            entity.Property(s => s.LastName).IsRequired();
+
+            entity.ToTable(t =>
+            {
+                t.HasCheckConstraint(name: "CK_TestScore_FirstName_NotEmpty", sql: "length(FirstName) > 0");
+                t.HasCheckConstraint(name: "CK_TestScore_LastName_NotEmpty", sql: "length(LastName) > 0");
+            });
+
+            entity.HasKey(s => new { s.FirstName, s.LastName });
+        });
+
+
     }
 }
+
