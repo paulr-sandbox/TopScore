@@ -22,13 +22,15 @@ class Program
 
             using StreamReader reader = new(filePath);
 
-            var testScores = new TestScores(reader);
+            List<string> csvRows = [];
+            string? line;
 
-            // foreach (var scorer in testScores.TopScorers())
-            // {
-            //     Console.WriteLine($"{scorer.FirstName} {scorer.LastName}");
-            // }
-            // Console.WriteLine($"Score: {testScores.TopScore}");
+            while ((line = reader.ReadLine()) != null)
+            {
+                csvRows.Add(line);
+            }
+
+            var testScores = new TestScores(csvRows);
 
             Console.WriteLine(testScores.TopScorersResult());
 

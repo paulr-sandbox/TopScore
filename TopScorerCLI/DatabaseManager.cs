@@ -69,7 +69,7 @@ public class DatabaseManager
         transaction.Commit();
     }
 
-    public void ImportScores(List<DataRow> rows)
+    public void ImportScores(List<TestScore> rows)
     {
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();

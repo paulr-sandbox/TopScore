@@ -5,7 +5,8 @@ public class TestScoresTest
     [Fact]
     public void WhenValidRowsProvidedWithSingleTopScore_ReturnSingleNameAndScore()
     {
-        string[] testInput = [
+        List<string> testInput = [
+            "First Name, Last Name, Score",
             "a,a,1",
             "c,c,3",
             "b,b,2"
@@ -24,7 +25,8 @@ public class TestScoresTest
     [Fact]
     public void WhenValidRowsProvidedWithMultipleTopScores_ReturnMultipleOrderedNamesAndScore()
     {
-        string[] testInput = [
+        List<string> testInput = [
+            "First Name, Last Name, Score",
             "c,c,50",
             "a,a,1",
             "b,b,50",
@@ -42,13 +44,23 @@ public class TestScoresTest
     }
 
     [Fact]
-    public void WhenNoValuesProved_ThrowError()
+    public void WhenNoValuesProvided_ThrowError()
     {
-        var scores = new TestScores([]);
+        Assert.Throws<InvalidDataException>(() => new TestScores([]));
+    }
 
-        var result = scores.TopScorersResult();
+    [Fact]
+    public void WhenNoDataValuesProvided_ThrowError()
+    {
+        Assert.Throws<InvalidDataException>(() => new TestScores(["First Name, Last Name, Score"]));
+    }
 
-        Assert.Empty(scores.Scores);
-        Assert.Equal("", result);
+    [Fact]
+    public void WhenInvalidHeaderLine_ThrowError()
+    {
+        Assert.Throws<InvalidDataException>(() => new TestScores([
+            "First Name, Last Name",
+            "a,a"
+        ]));
     }
 }
