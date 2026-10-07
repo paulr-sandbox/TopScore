@@ -21,7 +21,7 @@ public class TestScores
             throw new InvalidDataException("Invalid header row.");
         }
 
-        int rowNumber = 2;
+        var rowNumber = 2;
 
         foreach (var line in lines)
         {
