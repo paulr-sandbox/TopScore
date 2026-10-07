@@ -6,11 +6,11 @@ public class DatabaseManager
 {
     private readonly string _connectionString;
 
-    private readonly string TABLE_NAME = "TestScores";
+    public readonly string TABLE_NAME = "TestScores";
 
-    public DatabaseManager(string databaseFile = "database.db")
+    public DatabaseManager(string connectionString = "Data Source=cliDatabase.db")
     {
-        _connectionString = $"Data Source={databaseFile}";
+        _connectionString = connectionString;
     }
 
     public void InitialiseDatabase()
