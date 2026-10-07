@@ -60,7 +60,7 @@ public class DatabaseManager
             }
             else
             {
-                pScore.Value = 0; // TODO: Decide on setting to zero or failing
+                continue; // Skip invalid scores.
             }
 
             insertCommand.ExecuteNonQuery();

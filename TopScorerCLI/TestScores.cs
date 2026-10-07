@@ -6,7 +6,27 @@ public class TestScores
 {
     public List<DataRow> Scores { get; } = [];
 
-    public int TopScore => Scores.Max(s => s.Score);
+    public int TopScore => Scores.Count != 0 ? Scores.Max(s => s.Score) : 0;
+
+    public TestScores(string[] lines)
+    {
+        int rowNumber = 2;
+
+        foreach (var line in lines)
+        {
+            string[] values = line.Split(',');
+
+            if (values.Length == 3 && int.TryParse(values[2], out int score))
+            {
+                Scores.Add(new DataRow(values[0].Trim(), values[1].Trim(), score));
+            }
+            else
+            {
+                Console.WriteLine($"Invalid row on line #{rowNumber}. Skipping...");
+            }
+            rowNumber++;
+        }
+    }
 
     public TestScores(StreamReader reader)
     {
@@ -42,6 +62,19 @@ public class TestScores
 
     public List<DataRow> TopScorers()
     {
-        return [.. Scores.Where(s => s.Score == TopScore)];
+        return [.. Scores.Where(s => s.Score == TopScore)
+            .OrderBy(s => s.FirstName)
+            .ThenBy(s => s.LastName)];
+    }
+
+    public string TopScorersResult()
+    {
+        var result = "";
+        foreach (var person in TopScorers())
+        {
+            result += $"{person.FirstName} {person.LastName}\n";
+        }
+        result += $"Score: {TopScore}";
+        return result;
     }
 }

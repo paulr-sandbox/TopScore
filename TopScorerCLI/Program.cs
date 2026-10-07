@@ -24,11 +24,13 @@ class Program
 
             var testScores = new TestScores(reader);
 
-            foreach (var scorer in testScores.TopScorers())
-            {
-                Console.WriteLine($"{scorer.FirstName} {scorer.LastName}");
-            }
-            Console.WriteLine($"Score: {testScores.TopScore}");
+            // foreach (var scorer in testScores.TopScorers())
+            // {
+            //     Console.WriteLine($"{scorer.FirstName} {scorer.LastName}");
+            // }
+            // Console.WriteLine($"Score: {testScores.TopScore}");
+
+            Console.WriteLine(testScores.TopScorersResult());
 
             var databaseManager = new DatabaseManager();
             databaseManager.InitialiseDatabase();

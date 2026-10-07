@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/TopScorerCLI.Tests/TopScorerCLI.Tests.csproj" />
+  </Folder>
   <Folder Name="/TopScoreApi.Tests/">
     <Project Path="TopScoreApi.Tests/IntegrationTests/IntegrationTests.csproj" />
     <Project Path="TopScoreApi.Tests/UnitTests/UnitTests.csproj" />

@@ -19,13 +19,13 @@ If you are using Visual Studio Code, you can also open the command palette and s
 This application takes in a CSV file as an argument a to complete the following:
 
 1. Read the contents of the CSV.
-2. Find the top score in the CSV as well as the names associated with it.
+2. Find the top score in the CSV as well as the names associated with it and print to the commandline.
 3. Populate a SQLite databse with the contents of the CSV.
 
 ## Limitations
 
 - Currently the application expects all supplied CSVs to follow `FirstName, LastName, Score` as the format.
-- The maintained databse will persist between runs of the application and will allow for duplicate entries.
+- The maintained databse will persist between runs of the application and will require unique names. Should a name already appear in the database, their score will be updated with the latest value.
 
 ### CLI Application
 
@@ -46,3 +46,12 @@ How to run this guy
 [Technologies]
 
 dotnet ef migrations add InitialMigration --output-dir Persistence/Migrations --project TopScoreApi.Infrastructure --context ApplicationDbContext --startup-project TopScoreApi.Web
+
+## TO DO
+
+- Unit Tests
+- Align logic (update same name, consistently throw errors)
+- Move to shared DB
+- Cleanup migrations?
+- Add CSV import to API
+- Clean up test project layout
