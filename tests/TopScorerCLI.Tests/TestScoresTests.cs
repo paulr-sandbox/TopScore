@@ -27,20 +27,20 @@ public class TestScoresTest
     {
         List<string> testInput = [
             "First Name, Last Name, Score",
-            "c,c,50",
-            "a,a,1",
-            "b,b,50",
-            "d,d,25"
+            "Dee,Moore,56",
+            "Sipho,Lolo,78",
+            "Noosrat,Hoosain,64",
+            "George,Of The Jungle,78"
         ];
 
         var scores = new TestScores(testInput);
 
         var result = scores.TopScorersResult();
 
-        Assert.Equal(50, scores.TopScore);
+        Assert.Equal(78, scores.TopScore);
         Assert.Equal(2, scores.TopScorers().Count);
 
-        Assert.Equal("b b\nc c\nScore: 50", result);
+        Assert.Equal("George Of The Jungle\nSipho Lolo\nScore: 78", result);
     }
 
     [Fact]

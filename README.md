@@ -22,6 +22,8 @@ This application takes in a CSV file as an argument to complete the following:
 2. Find the top score in the CSV as well as the names associated with it and print to the command line.
 3. Populate a SQLite database with the contents of the CSV called cliDatabase.db. This is created in the root of the project and is shared with the API.
 
+Evidence that this application meets the base requirements for this assignment can be seen in `TestScoresTests.cs`.
+
 ## Assumptions
 
 - This application should just be invoked from the command line with the input file as an argument and doesn't need to take in user inputs.
